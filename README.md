@@ -1,2 +1,3 @@
-# kmd-logic-email-client
-A dotnet client library for KMD Logic Email
+﻿# KMD Logic Email Api Client
+
+A dotnet client library for using Email module in KMD Logic platform through API.
