@@ -57,7 +57,7 @@ namespace Kmd.Logic.Email.Client
         /// </summary>
         /// <param name="mSExchangeConfigurationRequestDetails">Configuration details to be created.</param>
         /// <returns>CreateCertificateResponse.</returns>
-        public async Task<MSExchangeConfigurationResponse> CreateCertificate(MSExchangeConfigurationRequestDetails mSExchangeConfigurationRequestDetails)
+        public async Task<MSExchangeConfigurationResponse> CreateMSExchangeConfiguration(MSExchangeConfigurationRequestDetails mSExchangeConfigurationRequestDetails)
         {
             var client = this.CreateClient();
             var request = new MSExchangeConfigurationCreateRequest(
