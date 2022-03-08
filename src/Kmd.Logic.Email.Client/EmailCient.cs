@@ -61,8 +61,8 @@ namespace Kmd.Logic.Email.Client
         {
             var client = this.CreateClient();
             var request = new MSExchangeConfigurationCreateRequest(
-                mSExchangeConfigurationRequestDetails.ConfigurationName,
-                mSExchangeConfigurationRequestDetails.FromAddress);
+                mSExchangeConfigurationRequestDetails.FromAddress,
+                mSExchangeConfigurationRequestDetails.ConfigurationName);
             using var certificateDetailsResponse = await client.CreateEmailConfigurationWithHttpMessagesAsync(
                  this.options.SubscriptionId,
                  request).ConfigureAwait(false);

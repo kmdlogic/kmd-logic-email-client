@@ -18,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{5D
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{5E34F058-0E48-4336-A8EA-7A43461E9D58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kmd.Logic.Email.Client.ConfigurationSample", "sample\Kmd.Logic.Email.Client.ConfigurationSample\Kmd.Logic.Email.Client.ConfigurationSample.csproj", "{751FA165-F358-468B-9B46-0DF5C2F1D4A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,12 +32,17 @@ Global
 		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C4CEA508-AA47-4ABB-A052-0A24569C7731} = {AFAF5B2A-D2EC-4A63-822C-0CC8611CACDC}
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6} = {5E34F058-0E48-4336-A8EA-7A43461E9D58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA57DC32-EBE2-4932-B3F9-B1CB3C0BCE50}
