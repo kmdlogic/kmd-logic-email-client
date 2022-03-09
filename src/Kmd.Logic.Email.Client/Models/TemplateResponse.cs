@@ -9,23 +9,22 @@ namespace Kmd.Logic.Email.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class EmailTemplate
+    public partial class TemplateResponse
     {
         /// <summary>
-        /// Initializes a new instance of the EmailTemplate class.
+        /// Initializes a new instance of the TemplateResponse class.
         /// </summary>
-        public EmailTemplate()
+        public TemplateResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the EmailTemplate class.
+        /// Initializes a new instance of the TemplateResponse class.
         /// </summary>
-        public EmailTemplate(System.Guid? templateId = default(System.Guid?), string templateName = default(string))
+        public TemplateResponse(System.Guid? templateId = default(System.Guid?))
         {
             TemplateId = templateId;
-            TemplateName = templateName;
             CustomInit();
         }
 
@@ -38,11 +37,6 @@ namespace Kmd.Logic.Email.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "templateId")]
         public System.Guid? TemplateId { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "templateName")]
-        public string TemplateName { get; set; }
 
     }
 }

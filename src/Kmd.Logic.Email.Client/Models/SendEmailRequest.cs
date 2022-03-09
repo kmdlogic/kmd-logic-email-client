@@ -40,14 +40,12 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="callbackUrl">If provided, this URL endpoint will
         /// receive a POST request when there is any
         /// change of the Email status (e.g. sending, sent and failed).</param>
-        public SendEmailRequest(System.Guid providerConfigurationId, string subject, IList<RecipientEmail> recipientEmails, string body = default(string), IList<RecipientEmail> recipientsIncc = default(IList<RecipientEmail>), IList<RecipientEmail> recipientsInBcc = default(IList<RecipientEmail>), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), string templateId = default(string), object mergeData = default(object), string callbackUrl = default(string))
+        public SendEmailRequest(System.Guid providerConfigurationId, string subject, IList<RecipientEmail> recipientEmails, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), System.Guid? templateId = default(System.Guid?), object mergeData = default(object), string callbackUrl = default(string))
         {
             ProviderConfigurationId = providerConfigurationId;
             Body = body;
             Subject = subject;
             RecipientEmails = recipientEmails;
-            RecipientsIncc = recipientsIncc;
-            RecipientsInBcc = recipientsInBcc;
             Attachment = attachment;
             Schedule = schedule;
             TemplateId = templateId;
@@ -89,16 +87,6 @@ namespace Kmd.Logic.Email.Client.Models
         public IList<RecipientEmail> RecipientEmails { get; set; }
 
         /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "recipientsIncc")]
-        public IList<RecipientEmail> RecipientsIncc { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "recipientsInBcc")]
-        public IList<RecipientEmail> RecipientsInBcc { get; set; }
-
-        /// <summary>
         /// Gets or sets attachments sent as part of email
         /// </summary>
         [JsonProperty(PropertyName = "attachment")]
@@ -113,7 +101,7 @@ namespace Kmd.Logic.Email.Client.Models
         /// Gets or sets identifier of template to be used.
         /// </summary>
         [JsonProperty(PropertyName = "templateId")]
-        public string TemplateId { get; set; }
+        public System.Guid? TemplateId { get; set; }
 
         /// <summary>
         /// Gets or sets dynamic values to be merged inside the template.
@@ -152,26 +140,6 @@ namespace Kmd.Logic.Email.Client.Models
                     if (element != null)
                     {
                         element.Validate();
-                    }
-                }
-            }
-            if (RecipientsIncc != null)
-            {
-                foreach (var element1 in RecipientsIncc)
-                {
-                    if (element1 != null)
-                    {
-                        element1.Validate();
-                    }
-                }
-            }
-            if (RecipientsInBcc != null)
-            {
-                foreach (var element2 in RecipientsInBcc)
-                {
-                    if (element2 != null)
-                    {
-                        element2.Validate();
                     }
                 }
             }

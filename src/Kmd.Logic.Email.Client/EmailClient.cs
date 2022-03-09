@@ -4,6 +4,7 @@ using Kmd.Logic.Email.Client.Types;
 using Kmd.Logic.Identity.Authorization;
 using Microsoft.Rest;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -80,6 +81,42 @@ namespace Kmd.Logic.Email.Client
         }
 
         /// <summary>
+        /// Send Eamil.
+        /// </summary>
+        /// <param name="sendEmailRequestDetails">Send email detial request.</param>
+        /// <returns>Email request Id.</returns>
+        public async Task<SendEmailResponseDetails> SendEmail(SendEmailRequestDetails sendEmailRequestDetails)
+        {
+            var client = this.CreateClient();
+            var request = new SendEmailRequest(
+                sendEmailRequestDetails.ProviderConfigurationId,
+                sendEmailRequestDetails.Subject,
+                sendEmailRequestDetails.RecipientEmails?.Select(x => new RecipientEmail(x.Email)).ToList(),
+                sendEmailRequestDetails.Body,
+                sendEmailRequestDetails.Attachment?.Select(x => new Attachment(x.AttachmentId)).ToList(),
+                sendEmailRequestDetails.Schedule,
+                sendEmailRequestDetails.TemplateId,
+                sendEmailRequestDetails.MergeData,
+                sendEmailRequestDetails.CallbackUrl);
+
+            var configurationDetailsResponse = await client.SendEmailWithHttpMessagesAsync(
+                 this.options.SubscriptionId,
+                 request).ConfigureAwait(false);
+
+            switch (configurationDetailsResponse?.Response?.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return this.EmailResponce((SendEmailResponse)configurationDetailsResponse.Body);
+
+                case System.Net.HttpStatusCode.NotFound:
+                    return null;
+
+                default:
+                    throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Error accessing Email service.");
+            }
+        }
+
+        /// <summary>
         /// Disposing the rest of the classes.
         /// </summary>
         public void Dispose()
@@ -87,6 +124,11 @@ namespace Kmd.Logic.Email.Client
             this.httpClient?.Dispose();
             this.tokenProviderFactory?.Dispose();
             this.internalClient?.Dispose();
+        }
+
+        private SendEmailResponseDetails EmailResponce(SendEmailResponse body)
+        {
+            return new SendEmailResponseDetails(body.EmailRequestId);
         }
 
         /// <summary>

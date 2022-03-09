@@ -273,15 +273,11 @@ namespace Kmd.Logic.Email.Client
             /// <param name='providerConfigurationId'>
             /// The Provider Configuration ID
             /// </param>
-            /// <param name='templateName'>
-            /// Name of the template file name. Example of an accepted file name:
-            /// mytemplate.html
-            /// </param>
             /// <param name='template'>
             /// </param>
-            public static EmailTemplate SaveTemplate(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, string templateName, Stream template)
+            public static TemplateResponse SaveTemplate(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, Stream template)
             {
-                return operations.SaveTemplateAsync(subscriptionId, providerConfigurationId, templateName, template).GetAwaiter().GetResult();
+                return operations.SaveTemplateAsync(subscriptionId, providerConfigurationId, template).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -296,18 +292,14 @@ namespace Kmd.Logic.Email.Client
             /// <param name='providerConfigurationId'>
             /// The Provider Configuration ID
             /// </param>
-            /// <param name='templateName'>
-            /// Name of the template file name. Example of an accepted file name:
-            /// mytemplate.html
-            /// </param>
             /// <param name='template'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<EmailTemplate> SaveTemplateAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, string templateName, Stream template, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<TemplateResponse> SaveTemplateAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, Stream template, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.SaveTemplateWithHttpMessagesAsync(subscriptionId, providerConfigurationId, templateName, template, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.SaveTemplateWithHttpMessagesAsync(subscriptionId, providerConfigurationId, template, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
