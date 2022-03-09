@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client", "src\Kmd.Logic.Email.Client\Kmd.Logic.Email.Client.csproj", "{C4CEA508-AA47-4ABB-A052-0A24569C7731}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AFAF5B2A-D2EC-4A63-822C-0CC8611CACDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{5D059B1B-A5F7-42CA-A850-F886639AA02C}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGES.md = CHANGES.md
+		Directory.Build.props = Directory.Build.props
+		.github\workflows\github-cicd.yml = .github\workflows\github-cicd.yml
+		global.json = global.json
+		kmd-logic-icon.png = kmd-logic-icon.png
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{5E34F058-0E48-4336-A8EA-7A43461E9D58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kmd.Logic.Email.Client.ConfigurationSample", "sample\Kmd.Logic.Email.Client.ConfigurationSample\Kmd.Logic.Email.Client.ConfigurationSample.csproj", "{751FA165-F358-468B-9B46-0DF5C2F1D4A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4CEA508-AA47-4ABB-A052-0A24569C7731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C4CEA508-AA47-4ABB-A052-0A24569C7731} = {AFAF5B2A-D2EC-4A63-822C-0CC8611CACDC}
+		{751FA165-F358-468B-9B46-0DF5C2F1D4A6} = {5E34F058-0E48-4336-A8EA-7A43461E9D58}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA57DC32-EBE2-4932-B3F9-B1CB3C0BCE50}
+	EndGlobalSection
+EndGlobal
