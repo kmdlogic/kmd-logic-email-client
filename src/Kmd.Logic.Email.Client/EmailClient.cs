@@ -63,19 +63,19 @@ namespace Kmd.Logic.Email.Client
             var request = new MSExchangeConfigurationCreateRequest(
                 mSExchangeConfigurationRequestDetails.FromAddress,
                 mSExchangeConfigurationRequestDetails.ConfigurationName);
-            using var certificateDetailsResponse = await client.CreateEmailConfigurationWithHttpMessagesAsync(
+            using var configurationDetailsResponse = await client.CreateEmailConfigurationWithHttpMessagesAsync(
                  this.options.SubscriptionId,
                  request).ConfigureAwait(false);
-            switch (certificateDetailsResponse?.Response?.StatusCode)
+            switch (configurationDetailsResponse?.Response?.StatusCode)
             {
                 case System.Net.HttpStatusCode.OK:
-                    return certificateDetailsResponse.Body;
+                    return configurationDetailsResponse.Body;
 
                 case System.Net.HttpStatusCode.NotFound:
                     return null;
 
                 default:
-                    throw new EmailException(certificateDetailsResponse?.Body?.ToString() ?? "Error accessing Email service.");
+                    throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Error accessing Email service.");
             }
         }
 
