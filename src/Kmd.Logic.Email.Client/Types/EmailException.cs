@@ -3,7 +3,7 @@
 namespace Kmd.Logic.Email.Client.Types
 {
     /// <summary>
-    /// Exception class to handle file security related errors.
+    /// Exception class to handle email related errors.
     /// </summary>
     [Serializable]
     public class EmailException : Exception

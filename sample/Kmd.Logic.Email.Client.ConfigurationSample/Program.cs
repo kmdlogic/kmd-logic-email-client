@@ -21,6 +21,7 @@ namespace Kmd.Logic.Email.Client.ConfigurationSample
                     .AddJsonFile("appsettings.json", optional: false)
                     .AddEnvironmentVariables()
                     .AddCommandLine(args)
+                    .AddUserSecrets<Program>()
                     .Build()
                     .Get<AppConfiguration>();
 
@@ -54,7 +55,7 @@ namespace Kmd.Logic.Email.Client.ConfigurationSample
 
             using var httpClient = new HttpClient();
             using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
-            var emailClient = new EmailCient(httpClient, tokenProviderFactory, configuration.EmailOptions);
+            var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
 
             // Create MSExchange Configuration
             // Take configuration details from user
