@@ -13,7 +13,7 @@ namespace Kmd.Logic.Email.Client
         /// <remarks>
         /// This option should not be overridden except for testing purposes.
         /// </remarks>
-        public Uri EmailServiceUri { get; set; } = new Uri("https://email.shareddev.kmdlogic.io/");
+        public Uri EmailServiceUri { get; set; } = new Uri("https://gateway.kmdlogic.io/email/v1");
 
         /// <summary>
         /// Gets or sets the Logic Subscription.
