@@ -61,8 +61,8 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
         {
             return new List<AttachmentDetails>
             {
-                new AttachmentDetails(Guid.Empty),
-                new AttachmentDetails(Guid.Empty),
+                new AttachmentDetails(new Guid("00000000-0000-0000-0000-000000000000")),
+                new AttachmentDetails(new Guid("00000000-0000-0000-0000-000000000000")),
             };
         }
 
@@ -71,8 +71,8 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
         {
             return new List<RecipientEmailDetails>
             {
-                new RecipientEmailDetails("Email Recipient 1"),
-                new RecipientEmailDetails("Email Recipient 2"),
+                new RecipientEmailDetails("Email address 1"),
+                new RecipientEmailDetails("Email address 2"),
             };
         }
     }

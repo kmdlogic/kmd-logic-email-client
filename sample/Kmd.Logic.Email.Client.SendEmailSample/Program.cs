@@ -63,11 +63,11 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
                recipientEmails: AppConfiguration.EmailRecipients(),
                body: configuration.Body,
                subject: configuration.Subject,
-               attachment: AppConfiguration.EmailAttachments(),
+               attachment: null,
                schedule: null,
-               templateId: configuration.TemplateId,
-               mergeData: configuration.MergeData,
-               callbackUrl: configuration.CallbackUrl);
+               templateId: null,
+               mergeData: null,
+               callbackUrl: null);
 
             Log.Information("Sending email send request...!");
             var emailResponse = await emailClient.SendEmail(sendEmailRequest).ConfigureAwait(false);

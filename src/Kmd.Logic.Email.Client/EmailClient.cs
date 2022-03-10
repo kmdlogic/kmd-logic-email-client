@@ -75,6 +75,9 @@ namespace Kmd.Logic.Email.Client
                 case System.Net.HttpStatusCode.NotFound:
                     return null;
 
+                case System.Net.HttpStatusCode.BadRequest:
+                    return null;
+
                 default:
                     throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Error accessing Email service.");
             }
@@ -109,6 +112,9 @@ namespace Kmd.Logic.Email.Client
                     return this.EmailResponce((SendEmailResponse)configurationDetailsResponse.Body);
 
                 case System.Net.HttpStatusCode.NotFound:
+                    return null;
+
+                case System.Net.HttpStatusCode.BadRequest:
                     return null;
 
                 default:
