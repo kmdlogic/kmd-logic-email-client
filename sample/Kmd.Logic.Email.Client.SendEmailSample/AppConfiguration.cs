@@ -67,12 +67,30 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
         }
 
         // Email addresses for sending email
-        public static List<RecipientEmailDetails> EmailRecipients()
+        public static IList<EmailAddressDetails> ToEmailRecipients()
         {
-            return new List<RecipientEmailDetails>
+            return new List<EmailAddressDetails>
             {
-                new RecipientEmailDetails("Email address 1"),
-                new RecipientEmailDetails("Email address 2"),
+                new EmailAddressDetails("To Email address 1"),
+                new EmailAddressDetails("To Email address 2"),
+            };
+        }
+
+        public static IList<EmailAddressDetails> CcEmailRecipients()
+        {
+            return new List<EmailAddressDetails>
+            {
+                new EmailAddressDetails("Cc Email address 1"),
+                new EmailAddressDetails("Cc Email address 2"),
+            };
+        }
+
+        public static IList<EmailAddressDetails> BccEmailRecipients()
+        {
+            return new List<EmailAddressDetails>
+            {
+                new EmailAddressDetails("Bcc Email address 1"),
+                new EmailAddressDetails("Bcc Email address 2"),
             };
         }
     }

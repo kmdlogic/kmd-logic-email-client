@@ -413,15 +413,37 @@
         }
       }
     },
-    "RecipientEmail": {
-      "required": [
-        "email"
-      ],
+    "EmailAddress": {
       "type": "object",
       "properties": {
         "email": {
-          "pattern": "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",
           "type": "string"
+        }
+      }
+    },
+    "RecipientEmail": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        },
+        "cc": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        },
+        "bcc": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
         }
       }
     },
@@ -494,7 +516,7 @@
     "SendEmailRequest": {
       "required": [
         "providerConfigurationId",
-        "recipientEmails",
+        "recipients",
         "subject"
       ],
       "type": "object",
@@ -511,14 +533,8 @@
         "subject": {
           "type": "string"
         },
-        "recipientEmails": {
-          "description": "Email of recipients. Limit is maximum 20 recipients",
-          "maxLength": 20,
-          "minLength": 1,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RecipientEmail"
-          }
+        "recipients": {
+          "$ref": "#/definitions/RecipientEmail"
         },
         "attachment": {
           "description": "Attachments sent as part of email",

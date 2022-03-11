@@ -60,7 +60,10 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
             Log.Information("Creating  email send request...");
             var sendEmailRequest = new SendEmailRequestDetails(
                providerConfigurationId: configuration.ProviderConfigurationId,
-               recipientEmails: AppConfiguration.EmailRecipients(),
+               recipients: new RecipientEmailDetails(
+                   AppConfiguration.ToEmailRecipients(),
+                   AppConfiguration.ToEmailRecipients(),
+                   AppConfiguration.BccEmailRecipients()),
                body: configuration.Body,
                subject: configuration.Subject,
                attachment: null,
@@ -72,7 +75,7 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
             Log.Information("Sending email send request...!");
             var emailResponse = await emailClient.SendEmail(sendEmailRequest).ConfigureAwait(false);
 
-            if (sendEmailRequest == null)
+            if (emailResponse == null)
             {
                 Log.Error("Couldn't send email");
                 return;

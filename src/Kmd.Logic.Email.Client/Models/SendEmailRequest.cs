@@ -28,8 +28,6 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="providerConfigurationId">A unique identifier that
         /// represents the associated configuration
         /// which this Email message will be sent with.</param>
-        /// <param name="recipientEmails">Email of recipients. Limit is maximum
-        /// 20 recipients</param>
         /// <param name="body">A unique identifier that represents the
         /// associated configuration
         /// which this Email message will be sent with.</param>
@@ -40,12 +38,12 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="callbackUrl">If provided, this URL endpoint will
         /// receive a POST request when there is any
         /// change of the Email status (e.g. sending, sent and failed).</param>
-        public SendEmailRequest(System.Guid providerConfigurationId, string subject, IList<RecipientEmail> recipientEmails, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), System.Guid? templateId = default(System.Guid?), object mergeData = default(object), string callbackUrl = default(string))
+        public SendEmailRequest(System.Guid providerConfigurationId, string subject, RecipientEmail recipients, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), System.Guid? templateId = default(System.Guid?), object mergeData = default(object), string callbackUrl = default(string))
         {
             ProviderConfigurationId = providerConfigurationId;
             Body = body;
             Subject = subject;
-            RecipientEmails = recipientEmails;
+            Recipients = recipients;
             Attachment = attachment;
             Schedule = schedule;
             TemplateId = templateId;
@@ -81,10 +79,9 @@ namespace Kmd.Logic.Email.Client.Models
         public string Subject { get; set; }
 
         /// <summary>
-        /// Gets or sets email of recipients. Limit is maximum 20 recipients
         /// </summary>
-        [JsonProperty(PropertyName = "recipientEmails")]
-        public IList<RecipientEmail> RecipientEmails { get; set; }
+        [JsonProperty(PropertyName = "recipients")]
+        public RecipientEmail Recipients { get; set; }
 
         /// <summary>
         /// Gets or sets attachments sent as part of email
@@ -129,19 +126,9 @@ namespace Kmd.Logic.Email.Client.Models
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Subject");
             }
-            if (RecipientEmails == null)
+            if (Recipients == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "RecipientEmails");
-            }
-            if (RecipientEmails != null)
-            {
-                foreach (var element in RecipientEmails)
-                {
-                    if (element != null)
-                    {
-                        element.Validate();
-                    }
-                }
+                throw new ValidationException(ValidationRules.CannotBeNull, "Recipients");
             }
             if (Schedule != null)
             {

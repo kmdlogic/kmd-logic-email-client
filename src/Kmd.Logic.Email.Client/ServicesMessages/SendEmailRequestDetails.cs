@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kmd.Logic.Email.Client.ServicesMessages
 {
@@ -10,7 +9,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
     {
         public SendEmailRequestDetails(
             Guid providerConfigurationId,
-            IList<RecipientEmailDetails> recipientEmails,
+            RecipientEmailDetails recipients,
             string body,
             string subject,
             IList<AttachmentDetails> attachment,
@@ -21,7 +20,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
         {
             this.ProviderConfigurationId = providerConfigurationId;
             this.Body = body;
-            this.RecipientEmails = recipientEmails;
+            this.Recipients = recipients;
             this.Subject = subject;
             this.Attachment = attachment;
             this.Schedule = schedule;
@@ -36,7 +35,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
 
         public string Subject { get; }
 
-        public IList<RecipientEmailDetails> RecipientEmails { get; }
+        public RecipientEmailDetails Recipients { get; set; }
 
         public IList<AttachmentDetails> Attachment { get; }
 

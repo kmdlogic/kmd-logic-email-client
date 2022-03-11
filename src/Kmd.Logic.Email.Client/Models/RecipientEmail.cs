@@ -6,8 +6,9 @@
 
 namespace Kmd.Logic.Email.Client.Models
 {
-    using Microsoft.Rest;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class RecipientEmail
@@ -23,9 +24,11 @@ namespace Kmd.Logic.Email.Client.Models
         /// <summary>
         /// Initializes a new instance of the RecipientEmail class.
         /// </summary>
-        public RecipientEmail(string email)
+        public RecipientEmail(IList<EmailAddress> to = default(IList<EmailAddress>), IList<EmailAddress> cc = default(IList<EmailAddress>), IList<EmailAddress> bcc = default(IList<EmailAddress>))
         {
-            Email = email;
+            To = to;
+            Cc = cc;
+            Bcc = bcc;
             CustomInit();
         }
 
@@ -36,28 +39,18 @@ namespace Kmd.Logic.Email.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "email")]
-        public string Email { get; set; }
+        [JsonProperty(PropertyName = "to")]
+        public IList<EmailAddress> To { get; set; }
 
         /// <summary>
-        /// Validate the object.
         /// </summary>
-        /// <exception cref="ValidationException">
-        /// Thrown if validation fails
-        /// </exception>
-        public virtual void Validate()
-        {
-            if (Email == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Email");
-            }
-            if (Email != null)
-            {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"))
-                {
-                    throw new ValidationException(ValidationRules.Pattern, "Email", "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
-                }
-            }
-        }
+        [JsonProperty(PropertyName = "cc")]
+        public IList<EmailAddress> Cc { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "bcc")]
+        public IList<EmailAddress> Bcc { get; set; }
+
     }
 }

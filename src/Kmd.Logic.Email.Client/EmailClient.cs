@@ -4,6 +4,7 @@ using Kmd.Logic.Email.Client.Types;
 using Kmd.Logic.Identity.Authorization;
 using Microsoft.Rest;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -91,10 +92,16 @@ namespace Kmd.Logic.Email.Client
         public async Task<SendEmailResponseDetails> SendEmail(SendEmailRequestDetails sendEmailRequestDetails)
         {
             var client = this.CreateClient();
+
+            var emailRecipient = new RecipientEmail(
+                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.To),
+                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Cc),
+                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Bcc));
+
             var request = new SendEmailRequest(
                 sendEmailRequestDetails.ProviderConfigurationId,
                 sendEmailRequestDetails.Subject,
-                sendEmailRequestDetails.RecipientEmails?.Select(x => new RecipientEmail(x.Email)).ToList(),
+                emailRecipient,
                 sendEmailRequestDetails.Body,
                 sendEmailRequestDetails.Attachment?.Select(x => new Attachment(x.AttachmentId)).ToList(),
                 sendEmailRequestDetails.Schedule,
@@ -130,6 +137,14 @@ namespace Kmd.Logic.Email.Client
             this.httpClient?.Dispose();
             this.tokenProviderFactory?.Dispose();
             this.internalClient?.Dispose();
+        }
+
+        private static IList<EmailAddress> MapEmailRecipients(IList<EmailAddressDetails> emails)
+        {
+            var lstEmail = new List<EmailAddress>();
+            emails?.ToList().ForEach(x => lstEmail.Add(new EmailAddress(x.Email)));
+            return lstEmail;
+            //return emails.Select(x => new EmailAddress(x.Email)).ToList();
         }
 
         private SendEmailResponseDetails EmailResponce(SendEmailResponse body)
