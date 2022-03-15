@@ -116,7 +116,7 @@ namespace Kmd.Logic.Email.Client
             switch (configurationDetailsResponse?.Response?.StatusCode)
             {
                 case System.Net.HttpStatusCode.OK:
-                    return this.EmailResponce((SendEmailResponse)configurationDetailsResponse.Body);
+                    return this.EmailResponse((SendEmailResponse)configurationDetailsResponse.Body);
 
                 case System.Net.HttpStatusCode.NotFound:
                     return null;
@@ -144,10 +144,9 @@ namespace Kmd.Logic.Email.Client
             var lstEmail = new List<EmailAddress>();
             emails?.ToList().ForEach(x => lstEmail.Add(new EmailAddress(x.Email)));
             return lstEmail;
-            //return emails.Select(x => new EmailAddress(x.Email)).ToList();
         }
 
-        private SendEmailResponseDetails EmailResponce(SendEmailResponse body)
+        private SendEmailResponseDetails EmailResponse(SendEmailResponse body)
         {
             return new SendEmailResponseDetails(body.EmailRequestId);
         }
