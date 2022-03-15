@@ -1196,10 +1196,6 @@ namespace Kmd.Logic.Email.Client
         /// <param name='providerConfigurationId'>
         /// The Provider Configuration ID
         /// </param>
-        /// <param name='templateName'>
-        /// Name of the template file name. Example of an accepted file name:
-        /// mytemplate.html
-        /// </param>
         /// <param name='template'>
         /// </param>
         /// <param name='customHeaders'>
@@ -1223,12 +1219,8 @@ namespace Kmd.Logic.Email.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<EmailTemplate>> SaveTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, string templateName, Stream template, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<TemplateResponse>> SaveTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, Stream template, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (templateName == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "templateName");
-            }
             if (template == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "template");
@@ -1242,7 +1234,6 @@ namespace Kmd.Logic.Email.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("providerConfigurationId", providerConfigurationId);
-                tracingParameters.Add("templateName", templateName);
                 tracingParameters.Add("template", template);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "SaveTemplate", tracingParameters);
@@ -1275,11 +1266,6 @@ namespace Kmd.Logic.Email.Client
             // Serialize Request
             string _requestContent = null;
             MultipartFormDataContent _multiPartContent = new MultipartFormDataContent();
-            if (templateName != null)
-            {
-                StringContent _templateName = new StringContent(templateName, System.Text.Encoding.UTF8);
-                _multiPartContent.Add(_templateName, "templateName");
-            }
             if (template != null)
             {
                 StreamContent _template = new StreamContent(template);
@@ -1346,7 +1332,7 @@ namespace Kmd.Logic.Email.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<EmailTemplate>();
+            var _result = new HttpOperationResponse<TemplateResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -1355,7 +1341,7 @@ namespace Kmd.Logic.Email.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<EmailTemplate>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<TemplateResponse>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

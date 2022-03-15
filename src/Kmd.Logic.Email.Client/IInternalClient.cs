@@ -158,10 +158,6 @@ namespace Kmd.Logic.Email.Client
         /// <param name='providerConfigurationId'>
         /// The Provider Configuration ID
         /// </param>
-        /// <param name='templateName'>
-        /// Name of the template file name. Example of an accepted file name:
-        /// mytemplate.html
-        /// </param>
         /// <param name='template'>
         /// </param>
         /// <param name='customHeaders'>
@@ -170,7 +166,7 @@ namespace Kmd.Logic.Email.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<EmailTemplate>> SaveTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, string templateName, Stream template, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<TemplateResponse>> SaveTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, Stream template, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }

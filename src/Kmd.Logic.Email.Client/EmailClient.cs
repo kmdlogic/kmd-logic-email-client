@@ -4,6 +4,8 @@ using Kmd.Logic.Email.Client.Types;
 using Kmd.Logic.Identity.Authorization;
 using Microsoft.Rest;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -74,6 +76,54 @@ namespace Kmd.Logic.Email.Client
                 case System.Net.HttpStatusCode.NotFound:
                     return null;
 
+                case System.Net.HttpStatusCode.BadRequest:
+                    return null;
+
+                default:
+                    throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Error accessing Email service.");
+            }
+        }
+
+        /// <summary>
+        /// Send Eamil.
+        /// </summary>
+        /// <param name="sendEmailRequestDetails">Send email detial request.</param>
+        /// <returns>Email request Id.</returns>
+        public async Task<SendEmailResponseDetails> SendEmail(SendEmailRequestDetails sendEmailRequestDetails)
+        {
+            var client = this.CreateClient();
+
+            var emailRecipient = new RecipientEmail(
+                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.To),
+                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Cc),
+                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Bcc));
+
+            var request = new SendEmailRequest(
+                sendEmailRequestDetails.ProviderConfigurationId,
+                sendEmailRequestDetails.Subject,
+                emailRecipient,
+                sendEmailRequestDetails.Body,
+                sendEmailRequestDetails.Attachment?.Select(x => new Attachment(x.AttachmentId)).ToList(),
+                sendEmailRequestDetails.Schedule,
+                sendEmailRequestDetails.TemplateId,
+                sendEmailRequestDetails.MergeData,
+                sendEmailRequestDetails.CallbackUrl);
+
+            var configurationDetailsResponse = await client.SendEmailWithHttpMessagesAsync(
+                 this.options.SubscriptionId,
+                 request).ConfigureAwait(false);
+
+            switch (configurationDetailsResponse?.Response?.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return this.EmailResponse((SendEmailResponse)configurationDetailsResponse.Body);
+
+                case System.Net.HttpStatusCode.NotFound:
+                    return null;
+
+                case System.Net.HttpStatusCode.BadRequest:
+                    return null;
+
                 default:
                     throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Error accessing Email service.");
             }
@@ -87,6 +137,18 @@ namespace Kmd.Logic.Email.Client
             this.httpClient?.Dispose();
             this.tokenProviderFactory?.Dispose();
             this.internalClient?.Dispose();
+        }
+
+        private static IList<EmailAddress> MapEmailRecipients(IList<EmailAddressDetails> emails)
+        {
+            var lstEmail = new List<EmailAddress>();
+            emails?.ToList().ForEach(x => lstEmail.Add(new EmailAddress(x.Email)));
+            return lstEmail;
+        }
+
+        private SendEmailResponseDetails EmailResponse(SendEmailResponse body)
+        {
+            return new SendEmailResponseDetails(body.EmailRequestId);
         }
 
         /// <summary>

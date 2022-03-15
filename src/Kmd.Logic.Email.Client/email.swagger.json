@@ -375,14 +375,6 @@
             "format": "uuid"
           },
           {
-            "name": "templateName",
-            "in": "formData",
-            "description": "Name of the template file name. Example of an accepted file name: mytemplate.html",
-            "required": true,
-            "type": "string",
-            "pattern": "^[\\w,\\s-]+\\.*\\.html?$"
-          },
-          {
             "name": "template",
             "in": "formData",
             "required": true,
@@ -393,7 +385,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/EmailTemplate"
+              "$ref": "#/definitions/TemplateResponse"
             }
           },
           "400": {
@@ -421,15 +413,37 @@
         }
       }
     },
-    "RecipientEmail": {
-      "required": [
-        "email"
-      ],
+    "EmailAddress": {
       "type": "object",
       "properties": {
         "email": {
-          "pattern": "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",
           "type": "string"
+        }
+      }
+    },
+    "RecipientEmail": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        },
+        "cc": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        },
+        "bcc": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
         }
       }
     },
@@ -502,7 +516,7 @@
     "SendEmailRequest": {
       "required": [
         "providerConfigurationId",
-        "recipientEmails",
+        "recipients",
         "subject"
       ],
       "type": "object",
@@ -519,28 +533,8 @@
         "subject": {
           "type": "string"
         },
-        "recipientEmails": {
-          "description": "Email of recipients. Limit is maximum 20 recipients",
-          "maxLength": 20,
-          "minLength": 1,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RecipientEmail"
-          }
-        },
-        "recipientsIncc": {
-          "maxLength": 20,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RecipientEmail"
-          }
-        },
-        "recipientsInBcc": {
-          "maxLength": 20,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RecipientEmail"
-          }
+        "recipients": {
+          "$ref": "#/definitions/RecipientEmail"
         },
         "attachment": {
           "description": "Attachments sent as part of email",
@@ -553,6 +547,7 @@
           "$ref": "#/definitions/Schedule"
         },
         "templateId": {
+          "format": "uuid",
           "description": "Identifier of template to be used.",
           "type": "string"
         },
@@ -601,6 +596,7 @@
       "type": "object",
       "properties": {
         "templateId": {
+          "format": "uuid",
           "type": "string"
         },
         "templateName": {
@@ -641,6 +637,15 @@
       "properties": {
         "configurationName": {
           "description": "A custom name that can be used to later understand the purpose of\r\nthis provider configuration.",
+          "type": "string"
+        }
+      }
+    },
+    "TemplateResponse": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "format": "uuid",
           "type": "string"
         }
       }
