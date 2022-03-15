@@ -28,10 +28,13 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="providerConfigurationId">A unique identifier that
         /// represents the associated configuration
         /// which this Email message will be sent with.</param>
+        /// <param name="subject">Email Subject</param>
+        /// <param name="recipients">Recipients email addresses</param>
         /// <param name="body">A unique identifier that represents the
         /// associated configuration
         /// which this Email message will be sent with.</param>
         /// <param name="attachment">Attachments sent as part of email</param>
+        /// <param name="schedule"></param>
         /// <param name="templateId">Identifier of template to be used.</param>
         /// <param name="mergeData">Dynamic values to be merged inside the
         /// template.</param>
