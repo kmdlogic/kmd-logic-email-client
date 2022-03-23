@@ -67,13 +67,17 @@ namespace Kmd.Logic.Email.Client.AttachmentsSample
                 Console.WriteLine("Please provide file path:");
                 string filePath = Console.ReadLine();
                 Stream attachmentFile;
-                attachmentFile = new FileStream(filePath, FileMode.Open);
+                AttachmentResponseDetails configResult;
 
-                // Creating attachment request
-                Log.Information("Creating attachment request");
-                var attachmentReq = new AttachmentRequestDetails(new Guid(configurationId), attachmentFile);
-                Log.Information("Uploading attachment");
-                var configResult = await emailClient.AddAttachment(attachmentReq).ConfigureAwait(false);
+                using (attachmentFile = new FileStream(filePath, FileMode.Open))
+                {
+                    // Creating attachment request
+                    Log.Information("Creating attachment request");
+                    var attachmentReq = new AttachmentRequestDetails(new Guid(configurationId), attachmentFile);
+                    Log.Information("Uploading attachment");
+                    configResult = await emailClient.AddAttachment(attachmentReq).ConfigureAwait(false);
+                }
+
                 if (configResult == null)
                 {
                     Log.Error("Couldn't upload attachment");

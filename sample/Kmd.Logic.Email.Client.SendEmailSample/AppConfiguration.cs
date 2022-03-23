@@ -22,7 +22,7 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
         public EmailOptions EmailOptions { get; set; } = new EmailOptions();
 
         /// <summary>
-        /// Gets or sets a unique identifier that represents the associated configuration 
+        /// Gets or sets a unique identifier that represents the associated configuration
         /// which this Email message will be sent with.
         /// </summary>
         public Guid ProviderConfigurationId { get; set; } = new Guid("00000000-0000-0000-0000-000000000000");

@@ -145,7 +145,7 @@ namespace Kmd.Logic.Email.Client
             switch (attachmentResponse?.Response?.StatusCode)
             {
                 case System.Net.HttpStatusCode.OK:
-                    return this.AttachmentResponce((AttachmentResponse)attachmentResponse.Body);
+                    return this.AttachmentResponse((AttachmentResponse)attachmentResponse.Body);
 
                 case System.Net.HttpStatusCode.NotFound:
                     return null;
@@ -165,7 +165,7 @@ namespace Kmd.Logic.Email.Client
             this.internalClient?.Dispose();
         }
 
-        private AttachmentResponseDetails AttachmentResponce(AttachmentResponse body)
+        private AttachmentResponseDetails AttachmentResponse(AttachmentResponse body)
         {
             return new AttachmentResponseDetails(body.AttachmentId);
         }
