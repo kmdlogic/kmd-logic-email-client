@@ -62,14 +62,13 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
                providerConfigurationId: configuration.ProviderConfigurationId,
                recipients: new RecipientEmailDetails(
                    AppConfiguration.ToEmailRecipients(),
-                   AppConfiguration.ToEmailRecipients(),
+                   AppConfiguration.CcEmailRecipients(),
                    AppConfiguration.BccEmailRecipients()),
                body: configuration.Body,
                subject: configuration.Subject,
                attachment: null,
                schedule: null,
-               templateId: null,
-               mergeData: null,
+               template: new TemplateData(configuration.TemplateId, configuration.MergeData),
                callbackUrl: null);
 
             Log.Information("Sending email send request...!");

@@ -105,8 +105,7 @@ namespace Kmd.Logic.Email.Client
                 sendEmailRequestDetails.Body,
                 sendEmailRequestDetails.Attachment?.Select(x => new Attachment(x.AttachmentId)).ToList(),
                 sendEmailRequestDetails.Schedule,
-                sendEmailRequestDetails.TemplateId,
-                sendEmailRequestDetails.MergeData,
+                new TemplateDetails(sendEmailRequestDetails?.Template?.TemplateId, sendEmailRequestDetails?.Template?.MergeData),
                 sendEmailRequestDetails.CallbackUrl);
 
             var configurationDetailsResponse = await client.SendEmailWithHttpMessagesAsync(

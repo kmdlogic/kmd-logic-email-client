@@ -7,6 +7,8 @@
 namespace Kmd.Logic.Email.Client
 {
     using Models;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -259,6 +261,46 @@ namespace Kmd.Logic.Email.Client
             public static async Task DeleteProviderConfigurationAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.DeleteProviderConfigurationWithHttpMessagesAsync(subscriptionId, providerConfigurationId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Get all template ids for the specific provider configuration.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription that owns the template.
+            /// </param>
+            /// <param name='providerConfigurationId'>
+            /// The Provider Configuration ID
+            /// </param>
+            public static IList<EmailTemplate> GetTemplate(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId)
+            {
+                return operations.GetTemplateAsync(subscriptionId, providerConfigurationId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get all template ids for the specific provider configuration.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription that owns the template.
+            /// </param>
+            /// <param name='providerConfigurationId'>
+            /// The Provider Configuration ID
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<EmailTemplate>> GetTemplateAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetTemplateWithHttpMessagesAsync(subscriptionId, providerConfigurationId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>

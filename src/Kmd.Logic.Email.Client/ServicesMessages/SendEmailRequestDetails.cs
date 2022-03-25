@@ -1,5 +1,4 @@
 ﻿using Kmd.Logic.Email.Client.Models;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
             string subject,
             IList<AttachmentDetails> attachment,
             Schedule schedule,
-            Guid? templateId,
-            JObject mergeData,
+            TemplateData? template,
             string callbackUrl = null)
         {
             this.ProviderConfigurationId = providerConfigurationId;
@@ -24,8 +22,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
             this.Subject = subject;
             this.Attachment = attachment;
             this.Schedule = schedule;
-            this.TemplateId = templateId;
-            this.MergeData = mergeData;
+            this.Template = template;
             this.CallbackUrl = callbackUrl;
         }
 
@@ -41,9 +38,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
 
         public Schedule Schedule { get; }
 
-        public Guid? TemplateId { get; }
-
-        public JObject MergeData { get; }
+        public TemplateData Template { get; }
 
         public string CallbackUrl { get; }
     }

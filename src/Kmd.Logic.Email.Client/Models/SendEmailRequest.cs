@@ -34,14 +34,12 @@ namespace Kmd.Logic.Email.Client.Models
         /// associated configuration
         /// which this Email message will be sent with.</param>
         /// <param name="attachment">Attachments sent as part of email</param>
-        /// <param name="schedule"></param>
-        /// <param name="templateId">Identifier of template to be used.</param>
-        /// <param name="mergeData">Dynamic values to be merged inside the
-        /// template.</param>
+        /// <param name="schedule">Schedule email to send later</param>
+        /// <param name="template">HTML template sent as email</param>
         /// <param name="callbackUrl">If provided, this URL endpoint will
         /// receive a POST request when there is any
         /// change of the Email status (e.g. sending, sent and failed).</param>
-        public SendEmailRequest(System.Guid providerConfigurationId, string subject, RecipientEmail recipients, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), System.Guid? templateId = default(System.Guid?), object mergeData = default(object), string callbackUrl = default(string))
+        public SendEmailRequest(System.Guid providerConfigurationId, string subject, RecipientEmail recipients, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), TemplateDetails template = default(TemplateDetails), string callbackUrl = default(string))
         {
             ProviderConfigurationId = providerConfigurationId;
             Body = body;
@@ -49,8 +47,7 @@ namespace Kmd.Logic.Email.Client.Models
             Recipients = recipients;
             Attachment = attachment;
             Schedule = schedule;
-            TemplateId = templateId;
-            MergeData = mergeData;
+            Template = template;
             CallbackUrl = callbackUrl;
             CustomInit();
         }
@@ -98,16 +95,9 @@ namespace Kmd.Logic.Email.Client.Models
         public Schedule Schedule { get; set; }
 
         /// <summary>
-        /// Gets or sets identifier of template to be used.
         /// </summary>
-        [JsonProperty(PropertyName = "templateId")]
-        public System.Guid? TemplateId { get; set; }
-
-        /// <summary>
-        /// Gets or sets dynamic values to be merged inside the template.
-        /// </summary>
-        [JsonProperty(PropertyName = "mergeData")]
-        public object MergeData { get; set; }
+        [JsonProperty(PropertyName = "template")]
+        public TemplateDetails Template { get; set; }
 
         /// <summary>
         /// Gets or sets if provided, this URL endpoint will receive a POST
