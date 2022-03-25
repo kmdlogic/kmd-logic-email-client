@@ -16,6 +16,5 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
         public IList<EmailAddressDetails> Cc { get; set; }
 
         public IList<EmailAddressDetails> Bcc { get; set; }
-
     }
 }

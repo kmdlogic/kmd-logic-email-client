@@ -3,10 +3,11 @@ using Kmd.Logic.Identity.Authorization;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Kmd.Logic.Email.Client.SendEmailSample
+namespace Kmd.Logic.Email.Client.AttachmentsSample
 {
     public class Program
     {
@@ -57,33 +58,41 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
             using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
             var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
 
-            Log.Information("Creating  email send request...");
-            var sendEmailRequest = new SendEmailRequestDetails(
-               providerConfigurationId: configuration.ProviderConfigurationId,
-               recipients: new RecipientEmailDetails(
-                   AppConfiguration.ToEmailRecipients(),
-                   AppConfiguration.CcEmailRecipients(),
-                   AppConfiguration.BccEmailRecipients()),
-               body: configuration.Body,
-               subject: configuration.Subject,
-               attachment: null,
-               schedule: null,
-               template: new TemplateData(configuration.TemplateId, configuration.MergeData),
-               callbackUrl: null);
+            Console.WriteLine("Please provider Configuration Id:");
+            string configurationId = Console.ReadLine();
 
-            Log.Information("Sending email send request...!");
-            var emailResponse = await emailClient.SendEmail(sendEmailRequest).ConfigureAwait(false);
+            int repeat = 0;
+            do
+            {
+                Console.WriteLine("Please provide file path:");
+                string filePath = Console.ReadLine();
+                Stream attachmentFile;
+                AttachmentResponseDetails configResult;
 
-            if (emailResponse == null)
-            {
-                Log.Error("Couldn't send email");
-                return;
+                using (attachmentFile = new FileStream(filePath, FileMode.Open))
+                {
+                    // Creating attachment request
+                    Log.Information("Creating attachment request");
+                    var attachmentReq = new AttachmentRequestDetails(new Guid(configurationId), attachmentFile);
+                    Log.Information("Uploading attachment");
+                    configResult = await emailClient.AddAttachment(attachmentReq).ConfigureAwait(false);
+                }
+
+                if (configResult == null)
+                {
+                    Log.Error("Couldn't upload attachment");
+                    return;
+                }
+                else
+                {
+                    Log.Information("Attachment uploaded successfully...");
+                    Console.WriteLine("Attachment Id: {0} ", configResult.AttachmentId);
+                }
+
+                Console.WriteLine("\nPlease press 1 to continue with another attachment:");
+                repeat = Convert.ToInt32(Console.ReadLine());
             }
-            else
-            {
-                Log.Information("Sending email successfull.");
-                Console.WriteLine("Email request Id : {0}", emailResponse.EmailRequestId);
-            }
+            while (repeat == 1);
         }
     }
 }

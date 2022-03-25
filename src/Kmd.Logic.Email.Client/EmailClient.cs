@@ -94,9 +94,9 @@ namespace Kmd.Logic.Email.Client
             var client = this.CreateClient();
 
             var emailRecipient = new RecipientEmail(
-                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.To),
-                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Cc),
-                    MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Bcc));
+                    this.MapEmailRecipients(sendEmailRequestDetails?.Recipients?.To),
+                    this.MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Cc),
+                    this.MapEmailRecipients(sendEmailRequestDetails?.Recipients?.Bcc));
 
             var request = new SendEmailRequest(
                 sendEmailRequestDetails.ProviderConfigurationId,
@@ -105,8 +105,7 @@ namespace Kmd.Logic.Email.Client
                 sendEmailRequestDetails.Body,
                 sendEmailRequestDetails.Attachment?.Select(x => new Attachment(x.AttachmentId)).ToList(),
                 sendEmailRequestDetails.Schedule,
-                sendEmailRequestDetails.TemplateId,
-                sendEmailRequestDetails.MergeData,
+                new TemplateDetails(sendEmailRequestDetails?.Template?.TemplateId, sendEmailRequestDetails?.Template?.MergeData),
                 sendEmailRequestDetails.CallbackUrl);
 
             var configurationDetailsResponse = await client.SendEmailWithHttpMessagesAsync(
@@ -129,6 +128,32 @@ namespace Kmd.Logic.Email.Client
             }
         }
 
+        // Add attachment.
+        // </summary>
+        // <param name="attachmentRequestDetails">Attachment details to be created.</param>
+        // <returns>Attachment Response.</returns>
+        public async Task<AttachmentResponseDetails> AddAttachment(AttachmentRequestDetails attachmentRequestDetails)
+        {
+            var client = this.CreateClient();
+
+            using var attachmentResponse = await client.SaveAttachmentWithHttpMessagesAsync(
+                 this.options.SubscriptionId,
+                 attachmentRequestDetails.ProviderConfigurationId,
+                 attachmentRequestDetails.Attachment).ConfigureAwait(false);
+
+            switch (attachmentResponse?.Response?.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return this.AttachmentResponse((AttachmentResponse)attachmentResponse.Body);
+
+                case System.Net.HttpStatusCode.NotFound:
+                    return null;
+
+                default:
+                    throw new EmailException(attachmentResponse?.Body?.ToString() ?? "Error accessing Email service.");
+            }
+        }
+
         /// <summary>
         /// Disposing the rest of the classes.
         /// </summary>
@@ -139,7 +164,12 @@ namespace Kmd.Logic.Email.Client
             this.internalClient?.Dispose();
         }
 
-        private static IList<EmailAddress> MapEmailRecipients(IList<EmailAddressDetails> emails)
+        private AttachmentResponseDetails AttachmentResponse(AttachmentResponse body)
+        {
+            return new AttachmentResponseDetails(body.AttachmentId);
+        }
+
+        private IList<EmailAddress> MapEmailRecipients(IList<EmailAddressDetails> emails)
         {
             var lstEmail = new List<EmailAddress>();
             emails?.ToList().ForEach(x => lstEmail.Add(new EmailAddress(x.Email)));
