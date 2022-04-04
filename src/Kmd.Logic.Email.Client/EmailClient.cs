@@ -155,6 +155,36 @@ namespace Kmd.Logic.Email.Client
         }
 
         /// <summary>
+        /// Upload Template.
+        /// </summary>
+        /// <param name="templateRequestDetails">Template details to be uploaded.</param>
+        /// <returns>Template Response.</returns>
+        public async Task<TemplateResponseDetails> AddTemplate(TemplateRequestDetails templateRequestDetails)
+        {
+            var client = this.CreateClient();
+
+            using var attachmentResponse = await client.SaveTemplateWithHttpMessagesAsync(
+                 this.options.SubscriptionId,
+                 templateRequestDetails.ProviderConfigurationId,
+                 templateRequestDetails.Template).ConfigureAwait(false);
+
+            switch (attachmentResponse?.Response?.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return this.TemplateResponse((TemplateResponse)attachmentResponse.Body);
+
+                case System.Net.HttpStatusCode.NotFound:
+                    return null;
+
+                case System.Net.HttpStatusCode.BadRequest:
+                    return null;
+
+                default:
+                    throw new EmailException(attachmentResponse?.Body?.ToString() ?? "Error accessing Email service.");
+            }
+        }
+
+        /// <summary>
         /// Disposing the rest of the classes.
         /// </summary>
         public void Dispose()
@@ -162,6 +192,11 @@ namespace Kmd.Logic.Email.Client
             this.httpClient?.Dispose();
             this.tokenProviderFactory?.Dispose();
             this.internalClient?.Dispose();
+        }
+
+        private TemplateResponseDetails TemplateResponse(TemplateResponse body)
+        {
+            return new TemplateResponseDetails(body.TemplateId);
         }
 
         private AttachmentResponseDetails AttachmentResponse(AttachmentResponse body)

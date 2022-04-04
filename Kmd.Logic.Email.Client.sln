@@ -24,7 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client.Conf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client.SendEmailSample", "sample\Kmd.Logic.Email.Client.SendEmailSample\Kmd.Logic.Email.Client.SendEmailSample.csproj", "{4FB10A32-5990-4FED-9509-02618E8F3512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kmd.Logic.Email.Client.AttachmentsSample", "sample\Kmd.Logic.Email.Client.AttachmentsSample\Kmd.Logic.Email.Client.AttachmentsSample.csproj", "{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client.AttachmentsSample", "sample\Kmd.Logic.Email.Client.AttachmentsSample\Kmd.Logic.Email.Client.AttachmentsSample.csproj", "{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kmd.Logic.Email.Client.TemplatsSample", "sample\Kmd.Logic.Email.Client.TemplatsSample\Kmd.Logic.Email.Client.TemplatsSample.csproj", "{D1C84D86-A74F-486E-A02C-6A196E9E7B15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C84D86-A74F-486E-A02C-6A196E9E7B15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C84D86-A74F-486E-A02C-6A196E9E7B15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C84D86-A74F-486E-A02C-6A196E9E7B15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C84D86-A74F-486E-A02C-6A196E9E7B15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{751FA165-F358-468B-9B46-0DF5C2F1D4A6} = {5E34F058-0E48-4336-A8EA-7A43461E9D58}
 		{4FB10A32-5990-4FED-9509-02618E8F3512} = {5E34F058-0E48-4336-A8EA-7A43461E9D58}
 		{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194} = {5E34F058-0E48-4336-A8EA-7A43461E9D58}
+		{D1C84D86-A74F-486E-A02C-6A196E9E7B15} = {5E34F058-0E48-4336-A8EA-7A43461E9D58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA57DC32-EBE2-4932-B3F9-B1CB3C0BCE50}
