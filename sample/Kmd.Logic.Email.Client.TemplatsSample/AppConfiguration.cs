@@ -1,6 +1,6 @@
 ﻿using Kmd.Logic.Identity.Authorization;
 
-namespace Kmd.Logic.Email.Client.TemplatsSample
+namespace Kmd.Logic.Email.Client.TemplateSample
 {
     /// <summary>
     /// Class to get configuration details.

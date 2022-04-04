@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client.Send
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client.AttachmentsSample", "sample\Kmd.Logic.Email.Client.AttachmentsSample\Kmd.Logic.Email.Client.AttachmentsSample.csproj", "{5DA74D91-4D8C-4FA5-8AE3-A42BE97F9194}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kmd.Logic.Email.Client.TemplatsSample", "sample\Kmd.Logic.Email.Client.TemplatsSample\Kmd.Logic.Email.Client.TemplatsSample.csproj", "{D1C84D86-A74F-486E-A02C-6A196E9E7B15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kmd.Logic.Email.Client.TemplateSample", "sample\Kmd.Logic.Email.Client.TemplatsSample\Kmd.Logic.Email.Client.TemplateSample.csproj", "{D1C84D86-A74F-486E-A02C-6A196E9E7B15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

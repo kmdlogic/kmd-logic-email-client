@@ -7,7 +7,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Kmd.Logic.Email.Client.TemplatsSample
+namespace Kmd.Logic.Email.Client.TemplateSample
 {
     public class Program
     {
