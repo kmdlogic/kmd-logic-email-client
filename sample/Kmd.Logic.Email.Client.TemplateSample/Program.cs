@@ -67,7 +67,7 @@ namespace Kmd.Logic.Email.Client.TemplateSample
                 Console.WriteLine("Please provide file path:");
                 string filePath = Console.ReadLine();
                 Stream templateFile;
-                TemplateResponseDetails configResult;
+                TemplateResponseDetails templateResponse;
 
                 using (templateFile = new FileStream(filePath, FileMode.Open))
                 {
@@ -75,10 +75,10 @@ namespace Kmd.Logic.Email.Client.TemplateSample
                     Log.Information("Creating template request");
                     var templateReq = new TemplateRequestDetails(new Guid(configurationId), templateFile);
                     Log.Information("Uploading template");
-                    configResult = await emailClient.AddTemplate(templateReq).ConfigureAwait(false);
+                    templateResponse = await emailClient.AddTemplate(templateReq).ConfigureAwait(false);
                 }
 
-                if (configResult == null)
+                if (templateResponse == null)
                 {
                     Log.Error("Couldn't upload template");
                     return;
@@ -86,7 +86,7 @@ namespace Kmd.Logic.Email.Client.TemplateSample
                 else
                 {
                     Log.Information("Template uploaded successfully...");
-                    Console.WriteLine("Template Id: {0} ", configResult.TemplateId);
+                    Console.WriteLine("Template Id: {0} ", templateResponse.TemplateId);
                 }
 
                 Console.WriteLine("\nPlease press 1 to continue with another Template:");

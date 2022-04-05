@@ -163,15 +163,15 @@ namespace Kmd.Logic.Email.Client
         {
             var client = this.CreateClient();
 
-            using var attachmentResponse = await client.SaveTemplateWithHttpMessagesAsync(
+            using var templateResponse = await client.SaveTemplateWithHttpMessagesAsync(
                  this.options.SubscriptionId,
                  templateRequestDetails.ProviderConfigurationId,
                  templateRequestDetails.Template).ConfigureAwait(false);
 
-            switch (attachmentResponse?.Response?.StatusCode)
+            switch (templateResponse?.Response?.StatusCode)
             {
                 case System.Net.HttpStatusCode.OK:
-                    return this.TemplateResponse((TemplateResponse)attachmentResponse.Body);
+                    return this.TemplateResponse((TemplateResponse)templateResponse.Body);
 
                 case System.Net.HttpStatusCode.NotFound:
                     return null;
@@ -180,7 +180,7 @@ namespace Kmd.Logic.Email.Client
                     return null;
 
                 default:
-                    throw new EmailException(attachmentResponse?.Body?.ToString() ?? "Error accessing Email service.");
+                    throw new EmailException(templateResponse?.Body?.ToString() ?? "Error accessing Email service.");
             }
         }
 
