@@ -58,7 +58,7 @@ namespace Kmd.Logic.Email.Client.TemplateSample
             using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
             var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
 
-            Console.WriteLine("Please provider Configuration Id:");
+            Console.WriteLine("Please enter provider Configuration Id:");
             string configurationId = Console.ReadLine();
 
             int repeat = 0;
@@ -66,14 +66,14 @@ namespace Kmd.Logic.Email.Client.TemplateSample
             {
                 Console.WriteLine("Please provide file path:");
                 string filePath = Console.ReadLine();
-                Stream attachmentFile;
+                Stream templateFile;
                 TemplateResponseDetails configResult;
 
-                using (attachmentFile = new FileStream(filePath, FileMode.Open))
+                using (templateFile = new FileStream(filePath, FileMode.Open))
                 {
                     // Creating Template request
                     Log.Information("Creating template request");
-                    var templateReq = new TemplateRequestDetails(new Guid(configurationId), attachmentFile);
+                    var templateReq = new TemplateRequestDetails(new Guid(configurationId), templateFile);
                     Log.Information("Uploading template");
                     configResult = await emailClient.AddTemplate(templateReq).ConfigureAwait(false);
                 }
