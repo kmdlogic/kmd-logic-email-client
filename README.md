@@ -13,9 +13,9 @@ The Logic EmailClient provides options to:
 * Send Email
   * Send simple text email
   * Send email with attachment
-  * send email using (HTML) template
+  * Send email using (HTML) template
+  * Send scheduled email
   
-
 ## Getting started in ASP.NET Core
 
 To use this library in an ASP.NET Core application, 
@@ -24,7 +24,7 @@ and add a reference to the [Kmd.Logic.Identity.Authorization](https://www.nuget.
 
 ## How to use Email client library
 
-In projects or components where you need to access send Email, add a NuGet package reference to [Kmd.Logic.Email.Client](https://www.nuget.org/packages/Kmd.Logic.Email.Client).
+In projects or components where you need to send Email, add a NuGet package reference to [Kmd.Logic.Email.Client](https://www.nuget.org/packages/Kmd.Logic.Email.Client).
 
 The `LogicTokenProviderFactory` authorizes access to the Logic platform through the use of a Logic Identity issued client credential. The authorization token is reused until it expires. You would generally create a single instance of `LogicTokenProviderFactory`.
 
@@ -32,85 +32,21 @@ The `EmailClient` accesses the Email service.
 
 To get started:
 
-1. Create a subscription in [Logic Console](https://console.kmdlogic.io). This will provide you the `SubscriptionId`.
+1. Create a subscription in [Logic Console](https://console.kmdlogic.io). This will provide you with the `SubscriptionId`.
 2. Request a client credential. Once issued you can view the `ClientId`, `ClientSecret` and `AuthorizationScope` in [Logic Console](https://console.kmdlogic.io).
-3. Create a Email configuration. This will give you the `ConfigurationId`.
+3. Create an Email configuration. This will give you the `ConfigurationId`.
+4. As soon as the configuration is approved by the Logic Admin, you can start sending emails using it.
 
 The simplest example to send a Email is:
 
-```csharp
+```C#
 using var httpClient = new HttpClient();
 using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
 var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
 
-var sendEmailRequest = new SendEmailRequestDetails(
-    providerConfigurationId: configuration.ProviderConfigurationId,
-    recipients: new RecipientEmailDetails(
-            [
-                {
-                    email = " To Email Addres 1"
-                },
-                {
-                    email = "To Email Addres 2"
-                }
-            ],
-            [
-                {
-                    email = " Cc Email Addres 1"
-                },
-                {
-                    email = "Cc Email Addres 2"
-                }
-            ],
-            [
-                {
-                    email = "Bcc Email Addres 1"
-                },
-                {
-                    email = "Bcc Email Addres 2"
-                }
-            ]),
-    body: "Hello, world!",
-    subject: "Email subject",
-    attachment: new AttachmentDetails  [
-                {
-                    attachmentId: new Guid("00000000-0000-0000-0000-000000000000")
-                }
-            ],
-    schedule: null,
-    template: new TemplateData(
-    {
-        templateId: new Guid("00000000-0000-0000-0000-000000000000"),
-        mergeData: {}
-    }
-    ),
-    callbackUrl: "provide your callback Url")
-
-var emailResponse = await emailClient.SendEmail(sendEmailRequest).ConfigureAwait(false);
+var emailResponse = await emailClient.SendEmail(new SendEmailRequestDetails()).ConfigureAwait(false);
 
 ```
-The simplest example for upload attachment is:
-
-```csharp
-using var httpClient = new HttpClient();
-using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
-var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
-
- var attachmentRequest = new AttachmentRequestDetails(new Guid(configurationId), attachmentFile);
-result = await emailClient.AddAttachment(attachmentRequest).ConfigureAwait(false)
-```
-
-The simplest example for upload template is:
-
-```csharp
-using var httpClient = new HttpClient();
-using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
-var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
-
- var attachmentRequest = new TemplateRequestDetails(new Guid(configurationId), templateFile);
-result = await emailClient.AddAttachment(attachmentRequest).ConfigureAwait(false)
-```
-
 ## Sample application
 ## How to configure the Email client
 
@@ -129,20 +65,7 @@ Perhaps the easiest way to configure the Email client is from Application Settin
 }
 ```
 
-## Upload attachment
-
-A [simple console application](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.AttachmentsSample) is included to demonstrate how to call Logic Emai API to `upload attachment file`. You will need to provide the settings described above in `appsettings.json`.
-
-When you run this you should see the attachment Id printed to the console.
-
-## Upload template
-
-A [simple console application](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.TemplateSample) is included to demonstrate how to call Logic Emai API to `upload template` . You will need to provide the settings described above in `appsettings.json`.
-
-When you run this you should see the email Request Id printed to the console.
-
-## Send email
-
-A [simple console application](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.SendEmailSample) is included to demonstrate how to call Logic Emai API to `send email`. You will need to provide the settings described above in `appsettings.json`.
-
-When you run this you should see the email Request Id printed to the console.
+Below sample console applications are included as references how to use the Logic Email service. You will need to provide the settings described above in `appsettings.json`.
+* [Upload attachment file](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.AttachmentsSample),
+* [Upload template](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.TemplateSample), 
+* [Send email](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.SendEmailSample). 
