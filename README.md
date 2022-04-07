@@ -7,14 +7,14 @@ To allow products using Logic platform to send emails
 
 ## EmailClient
 
-The Logic EmailClient provides options to:
-* Upload Attachment
-* Upload Template 
-* Send Email
-  * Send simple text email
-  * Send email with attachment
-  * Send email using (HTML) template
-  * Send scheduled email
+Logic email client provides below options:
+* Upload Attachments
+* Upload Templates 
+* Send Emails
+  * Send simple text emails
+  * Send email with attachments
+  * Send email using (HTML) templates
+  * Send scheduled emails
   
 ## Getting started in ASP.NET Core
 
@@ -36,6 +36,8 @@ To get started:
 2. Request a client credential. Once issued you can view the `ClientId`, `ClientSecret` and `AuthorizationScope` in [Logic Console](https://console.kmdlogic.io).
 3. Create an Email configuration. This will give you the `ConfigurationId`.
 4. As soon as the configuration is approved by the Logic Admin, you can start sending emails using it.
+
+**Note:** Please raise an [issue](https://dev.azure.com/kmddk/KMDLoGIC/_dashboards/dashboard/02f46530-28bb-4962-bc2a-a12eabfe383e) for configuration approval.
 
 The simplest example to send a Email is:
 
@@ -65,7 +67,7 @@ Perhaps the easiest way to configure the Email client is from Application Settin
 }
 ```
 
-Below sample console applications are included as references how to use the Logic Email service. You will need to provide the settings described above in `appsettings.json`.
-* [Upload attachment file](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.AttachmentsSample),
-* [Upload template](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.TemplateSample), 
-* [Send email](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.SendEmailSample). 
+Below sample console applications are included as references to show how Logic Email service can be used. You will need to provide the settings described above in `appsettings.json`.
+* [Upload attachments](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.AttachmentsSample)
+* [Upload templates](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.TemplateSample)
+* [Send email](https://github.com/kmdlogic/kmd-logic-email-client/tree/dev/sample/Kmd.Logic.Email.Client.SendEmailSample)
