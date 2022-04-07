@@ -1,5 +1,5 @@
 1.1.0
-* Added create congiguration, send email, upload attachment and upload template features
+* Added create configuration , send email, upload attachment, upload template and scheduling email features
 
 0.1.0
 * Initial version

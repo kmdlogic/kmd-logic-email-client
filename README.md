@@ -3,7 +3,7 @@
 A dotnet client library for using Email module in KMD Logic platform through API.
 ## The purpose of the Email API
 
-To allow products using the Logic platform to **send email using custom email domain address**  
+To allow products using Logic platform to send emails  
 
 ## EmailClient
 
