@@ -1,0 +1,662 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "KMD Logic Email Service API"
+  },
+  "paths": {
+    "/subscriptions/{subscriptionId}/email/configurations/{providerConfigurationId}/attachment": {
+      "post": {
+        "tags": [
+          "Attachment"
+        ],
+        "summary": "Creates/Uploads an attachment file.",
+        "operationId": "SaveAttachment",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription that owns the Provider Configuration.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "The Provider Configuration ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "attachment",
+            "in": "formData",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AttachmentResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/email": {
+      "post": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Sends a single Email.",
+        "operationId": "SendEmail",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "Consumer subscription Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "request",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendEmailRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Email was queued for delivery",
+            "schema": {
+              "$ref": "#/definitions/SendEmailResponse"
+            }
+          },
+          "400": {
+            "description": "The body has missing/invalid values",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/email/provider-configurations/msExchange": {
+      "post": {
+        "tags": [
+          "MSExchangeConfiguration"
+        ],
+        "summary": "Creates an MSExchange email configuration.",
+        "operationId": "CreateEmailConfiguration",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription that owns the configurations.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The details of the email configuration",
+            "schema": {
+              "$ref": "#/definitions/MSExchangeConfigurationCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MSExchangeConfigurationResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/email/provider-configurations/msExchange/{providerConfigurationId}": {
+      "get": {
+        "tags": [
+          "MSExchangeConfiguration"
+        ],
+        "summary": "Get an MSExchange email configuration.",
+        "operationId": "GetEmailConfiguration",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription that owns the configurations.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "The Provider Configuration ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MSExchangeConfigurationResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "MSExchangeConfiguration"
+        ],
+        "summary": "Updates an MSExchange email configuration.",
+        "operationId": "UpdateEmailConfiguration",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "A valid SubscriptionId in which you are an owner/contributor",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "A valid ProviderConfigurationId of the config which needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The request body",
+            "schema": {
+              "$ref": "#/definitions/MSExchangeConfigurationUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Indicates the provider configuration was successfully updated, and returns\r\n            the provider configuration ID.",
+            "schema": {
+              "$ref": "#/definitions/MSExchangeConfigurationResponse"
+            }
+          },
+          "400": {
+            "description": "Indicates the provider configuration could not be updated because\r\n            there was a problem with the provided details. Possible reasons include with key / Value :\r\n             * Field Name / The body has missing or invalid values (e.g. invalid phone number, body missing, etc)\r\n             * Error / The provider credentials are expired or do not exist in the providers system\r\n             * Error / The provider is temporarily not responding (unreachable)\r\n             * Error / The provider responded with an unknown/unanticipated error"
+          },
+          "404": {
+            "description": "Indicates the provider configuration was not found."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/email/provider-configurations/{providerConfigurationId}": {
+      "delete": {
+        "tags": [
+          "ProviderConfiguration"
+        ],
+        "summary": "Delete Provider Configurations for a specific ProviderConfigurationId.",
+        "operationId": "DeleteProviderConfiguration",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The Subscription ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "The Provider Configuration ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/email/configurations/{providerConfigurationId}/template": {
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Creates/Uploads a template for a specific provider configuration.",
+        "operationId": "SaveTemplate",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription that owns the template.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "The Provider Configuration ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "template",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TemplateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AttachmentResponse": {
+      "type": "object",
+      "properties": {
+        "attachmentId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "EmailAddress": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "RecipientEmail": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        },
+        "cc": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        },
+        "bcc": {
+          "maxLength": 20,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailAddress"
+          }
+        }
+      }
+    },
+    "Attachment": {
+      "type": "object",
+      "properties": {
+        "attachmentId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "ScheduleTime": {
+      "required": [
+        "day",
+        "hour",
+        "minute",
+        "month",
+        "year"
+      ],
+      "type": "object",
+      "properties": {
+        "year": {
+          "format": "int32",
+          "type": "integer",
+          "maximum": 9999,
+          "minimum": 0
+        },
+        "day": {
+          "format": "int32",
+          "type": "integer",
+          "maximum": 31,
+          "minimum": 0
+        },
+        "month": {
+          "format": "int32",
+          "type": "integer",
+          "maximum": 12,
+          "minimum": 0
+        },
+        "hour": {
+          "format": "int32",
+          "type": "integer",
+          "maximum": 23,
+          "minimum": 0
+        },
+        "minute": {
+          "format": "int32",
+          "type": "integer",
+          "maximum": 59,
+          "minimum": 0
+        }
+      }
+    },
+    "Schedule": {
+      "required": [
+        "fromDateTime",
+        "toDateTime"
+      ],
+      "type": "object",
+      "properties": {
+        "fromDateTime": {
+          "$ref": "#/definitions/ScheduleTime"
+        },
+        "toDateTime": {
+          "$ref": "#/definitions/ScheduleTime"
+        }
+      }
+    },
+    "SendEmailRequest": {
+      "required": [
+        "providerConfigurationId",
+        "recipients",
+        "subject"
+      ],
+      "type": "object",
+      "properties": {
+        "providerConfigurationId": {
+          "format": "uuid",
+          "description": "A unique identifier that represents the associated configuration \r\nwhich this Email message will be sent with.",
+          "type": "string"
+        },
+        "body": {
+          "description": "A unique identifier that represents the associated configuration \r\nwhich this Email message will be sent with.",
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "recipients": {
+          "$ref": "#/definitions/RecipientEmail"
+        },
+        "attachment": {
+          "description": "Attachments sent as part of email",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attachment"
+          }
+        },
+        "schedule": {
+          "$ref": "#/definitions/Schedule"
+        },
+        "templateId": {
+          "format": "uuid",
+          "description": "Identifier of template to be used.",
+          "type": "string"
+        },
+        "mergeData": {
+          "description": "Dynamic values to be merged inside the template.",
+          "type": "object"
+        },
+        "callbackUrl": {
+          "format": "uri",
+          "description": "If provided, this URL endpoint will receive a POST request when there is any\r\nchange of the Email status (e.g. sending, sent and failed).",
+          "type": "string"
+        }
+      }
+    },
+    "SendEmailResponse": {
+      "required": [
+        "emailRequestId"
+      ],
+      "type": "object",
+      "properties": {
+        "emailRequestId": {
+          "format": "uuid",
+          "description": "A unique identifier for the Email.",
+          "type": "string"
+        }
+      }
+    },
+    "MSExchangeConfigurationCreateRequest": {
+      "required": [
+        "fromAddress"
+      ],
+      "type": "object",
+      "properties": {
+        "configurationName": {
+          "description": "A custom name that can be used to later understand the purpose of\r\nthis provider configuration.",
+          "type": "string"
+        },
+        "fromAddress": {
+          "description": "Domain/Subdomain used to configure the sender.",
+          "pattern": "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",
+          "type": "string"
+        }
+      }
+    },
+    "EmailTemplate": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "templateName": {
+          "type": "string"
+        }
+      }
+    },
+    "MSExchangeConfigurationResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "configurationName": {
+          "type": "string"
+        },
+        "fromAddress": {
+          "type": "string"
+        },
+        "subscriptionId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "isApproved": {
+          "type": "boolean"
+        },
+        "templates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailTemplate"
+          }
+        }
+      }
+    },
+    "MSExchangeConfigurationUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "configurationName": {
+          "description": "A custom name that can be used to later understand the purpose of\r\nthis provider configuration.",
+          "type": "string"
+        }
+      }
+    },
+    "TemplateResponse": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "Standard Authorization header using the Bearer scheme. <b>Example: \"bearer {token}\".</b> You can obtain that value from your browser Developer tools"
+    }
+  }
+}
