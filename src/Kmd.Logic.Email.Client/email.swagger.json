@@ -302,6 +302,45 @@
         ]
       }
     },
+    "/subscriptions/{subscriptionId}/email/provider-configurations": {
+      "get": {
+        "tags": [
+          "ProviderConfiguration"
+        ],
+        "summary": "Lists all available provider configurations for the subscription.",
+        "operationId": "GetAllProviderConfigurations",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EmailProviderConfiguration"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/subscriptions/{subscriptionId}/email/provider-configurations/{providerConfigurationId}": {
       "delete": {
         "tags": [
@@ -343,6 +382,58 @@
       }
     },
     "/subscriptions/{subscriptionId}/email/configurations/{providerConfigurationId}/template": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Get all template ids for the specific provider configuration.",
+        "operationId": "GetTemplate",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription that owns the template.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "The Provider Configuration ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TemplateInformation"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Template"
@@ -393,6 +484,54 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/email/configurations/{providerConfigurationId}/template/{templateId}": {
+      "delete": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Delete the template id for the specific provider configuration.",
+        "operationId": "DeleteTemplate",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription that owns the template.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "providerConfigurationId",
+            "in": "path",
+            "description": "The Provider Configuration ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "templateId",
+            "in": "path",
+            "description": "The Template ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [
@@ -513,6 +652,18 @@
         }
       }
     },
+    "TemplateDetails": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "mergeData": {
+          "type": "object"
+        }
+      }
+    },
     "SendEmailRequest": {
       "required": [
         "providerConfigurationId",
@@ -546,14 +697,8 @@
         "schedule": {
           "$ref": "#/definitions/Schedule"
         },
-        "templateId": {
-          "format": "uuid",
-          "description": "Identifier of template to be used.",
-          "type": "string"
-        },
-        "mergeData": {
-          "description": "Dynamic values to be merged inside the template.",
-          "type": "object"
+        "template": {
+          "$ref": "#/definitions/TemplateDetails"
         },
         "callbackUrl": {
           "format": "uri",
@@ -601,6 +746,17 @@
         },
         "templateName": {
           "type": "string"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "deletedDateTime": {
+          "format": "date-time",
+          "type": "string"
         }
       }
     },
@@ -641,11 +797,70 @@
         }
       }
     },
+    "ProviderConfigurationStatus": {
+      "type": "object",
+      "properties": {
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "errorReason": {
+          "type": "string"
+        }
+      }
+    },
+    "EmailProviderConfiguration": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "configurationName": {
+          "type": "string"
+        },
+        "subscriptionId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "isApproved": {
+          "type": "boolean"
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "providerConfigurationStatus": {
+          "$ref": "#/definitions/ProviderConfigurationStatus"
+        },
+        "templates": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/EmailTemplate"
+          }
+        }
+      }
+    },
     "TemplateResponse": {
       "type": "object",
       "properties": {
         "templateId": {
           "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "TemplateInformation": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "templateName": {
+          "type": "string"
+        },
+        "createdDateTime": {
           "type": "string"
         }
       }

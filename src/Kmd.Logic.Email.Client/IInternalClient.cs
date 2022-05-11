@@ -132,6 +132,20 @@ namespace Kmd.Logic.Email.Client
         Task<HttpOperationResponse<MSExchangeConfigurationResponse>> UpdateEmailConfigurationWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, MSExchangeConfigurationUpdateRequest request = default(MSExchangeConfigurationUpdateRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
+        /// Lists all available provider configurations for the subscription.
+        /// </summary>
+        /// <param name='subscriptionId'>
+        /// The subscription ID
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<EmailProviderConfiguration>>> GetAllProviderConfigurationsWithHttpMessagesAsync(System.Guid subscriptionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
         /// Delete Provider Configurations for a specific
         /// ProviderConfigurationId.
         /// </summary>
@@ -164,7 +178,7 @@ namespace Kmd.Logic.Email.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<EmailTemplate>>> GetTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<TemplateInformation>>> GetTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Creates/Uploads a template for a specific provider configuration.
@@ -184,6 +198,26 @@ namespace Kmd.Logic.Email.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse<TemplateResponse>> SaveTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, Stream template, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Delete the template id for the specific provider configuration.
+        /// </summary>
+        /// <param name='subscriptionId'>
+        /// The subscription that owns the template.
+        /// </param>
+        /// <param name='providerConfigurationId'>
+        /// The Provider Configuration ID
+        /// </param>
+        /// <param name='templateId'>
+        /// The Template ID
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> DeleteTemplateWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid providerConfigurationId, System.Guid templateId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }
