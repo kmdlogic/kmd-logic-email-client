@@ -227,6 +227,40 @@ namespace Kmd.Logic.Email.Client
             }
 
             /// <summary>
+            /// Lists all available provider configurations for the subscription.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription ID
+            /// </param>
+            public static IList<EmailProviderConfiguration> GetAllProviderConfigurations(this IInternalClient operations, System.Guid subscriptionId)
+            {
+                return operations.GetAllProviderConfigurationsAsync(subscriptionId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists all available provider configurations for the subscription.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription ID
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<EmailProviderConfiguration>> GetAllProviderConfigurationsAsync(this IInternalClient operations, System.Guid subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetAllProviderConfigurationsWithHttpMessagesAsync(subscriptionId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Delete Provider Configurations for a specific ProviderConfigurationId.
             /// </summary>
             /// <param name='operations'>
@@ -275,7 +309,7 @@ namespace Kmd.Logic.Email.Client
             /// <param name='providerConfigurationId'>
             /// The Provider Configuration ID
             /// </param>
-            public static IList<EmailTemplate> GetTemplate(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId)
+            public static IList<TemplateInformation> GetTemplate(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId)
             {
                 return operations.GetTemplateAsync(subscriptionId, providerConfigurationId).GetAwaiter().GetResult();
             }
@@ -295,7 +329,7 @@ namespace Kmd.Logic.Email.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<EmailTemplate>> GetTemplateAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<TemplateInformation>> GetTemplateAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetTemplateWithHttpMessagesAsync(subscriptionId, providerConfigurationId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -345,6 +379,49 @@ namespace Kmd.Logic.Email.Client
                 {
                     return _result.Body;
                 }
+            }
+
+            /// <summary>
+            /// Delete the template id for the specific provider configuration.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription that owns the template.
+            /// </param>
+            /// <param name='providerConfigurationId'>
+            /// The Provider Configuration ID
+            /// </param>
+            /// <param name='templateId'>
+            /// The Template ID
+            /// </param>
+            public static void DeleteTemplate(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, System.Guid templateId)
+            {
+                operations.DeleteTemplateAsync(subscriptionId, providerConfigurationId, templateId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete the template id for the specific provider configuration.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription that owns the template.
+            /// </param>
+            /// <param name='providerConfigurationId'>
+            /// The Provider Configuration ID
+            /// </param>
+            /// <param name='templateId'>
+            /// The Template ID
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task DeleteTemplateAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid providerConfigurationId, System.Guid templateId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.DeleteTemplateWithHttpMessagesAsync(subscriptionId, providerConfigurationId, templateId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
     }

@@ -9,26 +9,24 @@ namespace Kmd.Logic.Email.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class EmailTemplate
+    public partial class TemplateInformation
     {
         /// <summary>
-        /// Initializes a new instance of the EmailTemplate class.
+        /// Initializes a new instance of the TemplateInformation class.
         /// </summary>
-        public EmailTemplate()
+        public TemplateInformation()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the EmailTemplate class.
+        /// Initializes a new instance of the TemplateInformation class.
         /// </summary>
-        public EmailTemplate(System.Guid? templateId = default(System.Guid?), string templateName = default(string), bool? isDeleted = default(bool?), System.DateTime? createdDateTime = default(System.DateTime?), System.DateTime? deletedDateTime = default(System.DateTime?))
+        public TemplateInformation(System.Guid? templateId = default(System.Guid?), string templateName = default(string), string createdDateTime = default(string))
         {
             TemplateId = templateId;
             TemplateName = templateName;
-            IsDeleted = isDeleted;
             CreatedDateTime = createdDateTime;
-            DeletedDateTime = deletedDateTime;
             CustomInit();
         }
 
@@ -49,18 +47,8 @@ namespace Kmd.Logic.Email.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "isDeleted")]
-        public bool? IsDeleted { get; set; }
-
-        /// <summary>
-        /// </summary>
         [JsonProperty(PropertyName = "createdDateTime")]
-        public System.DateTime? CreatedDateTime { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "deletedDateTime")]
-        public System.DateTime? DeletedDateTime { get; set; }
+        public string CreatedDateTime { get; set; }
 
     }
 }

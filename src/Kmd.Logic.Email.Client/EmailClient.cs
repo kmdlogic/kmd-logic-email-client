@@ -185,6 +185,28 @@ namespace Kmd.Logic.Email.Client
         }
 
         /// <summary>
+        /// Get all provider configurations.
+        /// </summary>
+        /// <returns>List of Provider Configurations.</returns>
+        public async Task<IEnumerable<EmailProviderConfiguration>> GetAllProviderConfigurations()
+        {
+            var client = this.CreateClient();
+
+            using (var configurationDetailsResponse = await client.GetAllProviderConfigurationsWithHttpMessagesAsync(
+                 this.options.SubscriptionId).ConfigureAwait(false))
+            {
+                switch (configurationDetailsResponse?.Response?.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        return configurationDetailsResponse.Body;
+
+                    default:
+                        throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Invalid configuration provided to access Email service");
+                }
+            }
+        }
+
+        /// <summary>
         /// Disposing the rest of the classes.
         /// </summary>
         public void Dispose()
