@@ -28,14 +28,10 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="providerConfigurationId">A unique identifier that
         /// represents the associated configuration
         /// which this Email message will be sent with.</param>
-        /// <param name="subject">Email Subject</param>
-        /// <param name="recipients">Recipients email addresses</param>
         /// <param name="body">A unique identifier that represents the
         /// associated configuration
         /// which this Email message will be sent with.</param>
         /// <param name="attachment">Attachments sent as part of email</param>
-        /// <param name="schedule">Schedule email to send later</param>
-        /// <param name="template">HTML template sent as email</param>
         /// <param name="callbackUrl">If provided, this URL endpoint will
         /// receive a POST request when there is any
         /// change of the Email status (e.g. sending, sent and failed).</param>
