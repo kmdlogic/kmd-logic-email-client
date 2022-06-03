@@ -199,12 +199,38 @@ namespace Kmd.Logic.Email.Client
                 {
                     case System.Net.HttpStatusCode.OK:
                         return configurationDetailsResponse.Body;
-
                     default:
                         throw new EmailException(configurationDetailsResponse?.Body?.ToString() ?? "Invalid configuration provided to access Email service");
                 }
             }
         }
+
+        /// <summary>
+        /// Get the email details
+        /// </summary>
+        /// <param name="emailRequestDetails">Template details to be uploaded.</param>
+        /// <returns>EmailDetailsResponse</returns>
+        public async Task<EmailDetailsResponse> GetEmailDetails(EmailRequestDetails emailRequestDetails)
+        {
+            var client = this.CreateClient();
+
+            using (var emailDetailsResponse = await client.GetEmailDetailsWithHttpMessagesAsync(
+                 emailRequestDetails.SubscriptionId, emailRequestDetails.RequestId).ConfigureAwait(false))
+            {
+                switch (emailDetailsResponse?.Response?.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        return emailDetailsResponse.Body;
+
+                    case System.Net.HttpStatusCode.NotFound:
+                        return null;
+
+                    default:
+                        throw new EmailException(emailDetailsResponse?.Body?.ToString() ?? "Error accessing Email details service.");
+                }
+            }
+        }
+
 
         /// <summary>
         /// Disposing the rest of the classes.
