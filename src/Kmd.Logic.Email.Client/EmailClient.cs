@@ -208,7 +208,7 @@ namespace Kmd.Logic.Email.Client
         /// <summary>
         /// Get the information about email request.
         /// </summary>
-        /// <param name="emailRequestDetails">Email request details..</param>
+        /// <param name="emailRequestDetails">Email request details.</param>
         /// <returns>EmailDetailsResponse.</returns>
         public async Task<EmailDetailsResponse> GetEmailRequestDetails(EmailRequestDetails emailRequestDetails)
         {
