@@ -76,6 +76,18 @@ namespace Kmd.Logic.Email.Client
         /// </param>
         Task<HttpOperationResponse<object>> SendEmailWithHttpMessagesAsync(System.Guid subscriptionId, SendEmailRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='subscriptionId'>
+        /// </param>
+        /// <param name='emailRequestId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<EmailDetailsResponse>> GetEmailDetailsWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid emailRequestId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>
         /// Creates an MSExchange email configuration.
         /// </summary>
