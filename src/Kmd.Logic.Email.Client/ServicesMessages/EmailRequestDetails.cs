@@ -4,7 +4,6 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
 {
     public class EmailRequestDetails
     {
-
         public EmailRequestDetails(Guid requestId, Guid subscriptionId)
         {
             this.RequestId = requestId;

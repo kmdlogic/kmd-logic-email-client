@@ -206,10 +206,10 @@ namespace Kmd.Logic.Email.Client
         }
 
         /// <summary>
-        /// Get the email details
+        /// Get the information about email request.
         /// </summary>
-        /// <param name="emailRequestDetails">Template details to be uploaded.</param>
-        /// <returns>EmailDetailsResponse</returns>
+        /// <param name="emailRequestDetails">Email request details.</param>
+        /// <returns>EmailDetailsResponse.</returns>
         public async Task<EmailDetailsResponse> GetEmailDetails(EmailRequestDetails emailRequestDetails)
         {
             var client = this.CreateClient();
@@ -230,7 +230,6 @@ namespace Kmd.Logic.Email.Client
                 }
             }
         }
-
 
         /// <summary>
         /// Disposing the rest of the classes.
