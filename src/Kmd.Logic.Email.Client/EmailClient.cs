@@ -208,7 +208,7 @@ namespace Kmd.Logic.Email.Client
         /// <summary>
         /// Get the information about email request.
         /// </summary>
-        /// <param name="emailRequestDetails">Email request details.</param>
+        /// <param name="emailRequestDetails">GetEmailRequestDetails.</param>
         /// <returns>EmailDetailsResponse.</returns>
         public async Task<EmailDetailsResponse> GetEmailDetails(EmailRequestDetails emailRequestDetails)
         {
@@ -226,7 +226,7 @@ namespace Kmd.Logic.Email.Client
                         return null;
 
                     default:
-                        throw new EmailException(emailDetailsResponse?.Body?.ToString() ?? "Error accessing Email details service.");
+                        throw new EmailException(emailDetailsResponse?.Body?.ToString() ?? "Error accessing email service.");
                 }
             }
         }
