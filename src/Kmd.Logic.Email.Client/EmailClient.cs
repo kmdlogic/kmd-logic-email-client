@@ -210,7 +210,7 @@ namespace Kmd.Logic.Email.Client
         /// </summary>
         /// <param name="emailRequestDetails">GetEmailRequestDetails.</param>
         /// <returns>EmailDetailsResponse.</returns>
-        public async Task<EmailDetailsResponse> GetEmailDetails(EmailRequestDetails emailRequestDetails)
+        public async Task<EmailDetailsResponse> GetEmailRequestDetails(EmailRequestDetails emailRequestDetails)
         {
             var client = this.CreateClient();
 
