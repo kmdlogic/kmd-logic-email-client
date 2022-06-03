@@ -1,3 +1,6 @@
+1.0.2
+* Added get email request details feature
+
 1.0.1
 * Added get all configurations
 
