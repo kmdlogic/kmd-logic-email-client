@@ -15,7 +15,7 @@ Logic email client provides below options:
   * Send email with attachments
   * Send email using (HTML) templates
   * Send scheduled emails
-* Get Email request details
+* Get Email Request Details
 
 ## Getting started in ASP.NET Core
 
