@@ -131,6 +131,48 @@
         ]
       }
     },
+    "/subscriptions/{subscriptionId}/email/{emailRequestId}": {
+      "get": {
+        "tags": [
+          "Email"
+        ],
+        "operationId": "GetEmailDetails",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "emailRequestId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/EmailDetailsResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/subscriptions/{subscriptionId}/email/provider-configurations/msExchange": {
       "post": {
         "tags": [
@@ -717,6 +759,44 @@
           "format": "uuid",
           "description": "A unique identifier for the Email.",
           "type": "string"
+        }
+      }
+    },
+    "EmailDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subscriptionId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "providerConfigurationId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "templateId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "isSentToProvider": {
+          "type": "boolean"
+        },
+        "sentToProviderDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "callbackUrl": {
+          "format": "uri",
+          "type": "string"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attachment"
+          }
         }
       }
     },

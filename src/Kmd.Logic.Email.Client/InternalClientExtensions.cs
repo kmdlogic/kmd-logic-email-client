@@ -100,6 +100,36 @@ namespace Kmd.Logic.Email.Client
                 }
             }
 
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// </param>
+            /// <param name='emailRequestId'>
+            /// </param>
+            public static EmailDetailsResponse GetEmailDetails(this IInternalClient operations, System.Guid subscriptionId, System.Guid emailRequestId)
+            {
+                return operations.GetEmailDetailsAsync(subscriptionId, emailRequestId).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// </param>
+            /// <param name='emailRequestId'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<EmailDetailsResponse> GetEmailDetailsAsync(this IInternalClient operations, System.Guid subscriptionId, System.Guid emailRequestId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetEmailDetailsWithHttpMessagesAsync(subscriptionId, emailRequestId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
             /// <summary>
             /// Creates an MSExchange email configuration.
             /// </summary>
