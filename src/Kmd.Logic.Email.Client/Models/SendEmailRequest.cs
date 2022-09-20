@@ -28,6 +28,8 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="providerConfigurationId">A unique identifier that
         /// represents the associated configuration
         /// which this Email message will be sent with.</param>
+        /// <param name="importance">Email importance level (e.g. low, normal
+        /// and high)</param>
         /// <param name="subject">Email Subject</param>
         /// <param name="recipients">Recipients email addresses</param>
         /// <param name="body">A unique identifier that represents the
@@ -39,9 +41,10 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="callbackUrl">If provided, this URL endpoint will
         /// receive a POST request when there is any
         /// change of the Email status (e.g. sending, sent and failed).</param>
-        public SendEmailRequest(System.Guid providerConfigurationId, string subject, RecipientEmail recipients, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), TemplateDetails template = default(TemplateDetails), string callbackUrl = default(string))
+        public SendEmailRequest(System.Guid providerConfigurationId, string importance, string subject, RecipientEmail recipients, string body = default(string), IList<Attachment> attachment = default(IList<Attachment>), Schedule schedule = default(Schedule), TemplateDetails template = default(TemplateDetails), string callbackUrl = default(string))
         {
             ProviderConfigurationId = providerConfigurationId;
+            Importance = importance;
             Body = body;
             Subject = subject;
             Recipients = recipients;
@@ -64,6 +67,12 @@ namespace Kmd.Logic.Email.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "providerConfigurationId")]
         public System.Guid ProviderConfigurationId { get; set; }
+
+        /// <summary>
+        /// Gets or sets email importance level (e.g. low, normal and high)
+        /// </summary>
+        [JsonProperty(PropertyName = "importance")]
+        public string Importance { get; set; }
 
         /// <summary>
         /// Gets or sets a unique identifier that represents the associated
@@ -115,6 +124,10 @@ namespace Kmd.Logic.Email.Client.Models
         /// </exception>
         public virtual void Validate()
         {
+            if (Importance == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Importance");
+            }
             if (Subject == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Subject");

@@ -708,6 +708,7 @@
     },
     "SendEmailRequest": {
       "required": [
+        "importance",
         "providerConfigurationId",
         "recipients",
         "subject"
@@ -717,6 +718,10 @@
         "providerConfigurationId": {
           "format": "uuid",
           "description": "A unique identifier that represents the associated configuration \r\nwhich this Email message will be sent with.",
+          "type": "string"
+        },
+        "importance": {
+          "description": "Email importance level (e.g. low, normal and high)",
           "type": "string"
         },
         "body": {
