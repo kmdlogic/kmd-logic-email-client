@@ -57,9 +57,10 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
             using var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
             var emailClient = new EmailClient(httpClient, tokenProviderFactory, configuration.EmailOptions);
 
-            Log.Information("Creating  email send request...");
+            Log.Information("Creating email send request...");
             var sendEmailRequest = new SendEmailRequestDetails(
                providerConfigurationId: configuration.ProviderConfigurationId,
+               importance: configuration.Importance,
                recipients: new RecipientEmailDetails(
                    AppConfiguration.ToEmailRecipients(),
                    AppConfiguration.CcEmailRecipients(),
