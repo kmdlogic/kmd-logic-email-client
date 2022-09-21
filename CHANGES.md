@@ -1,3 +1,6 @@
+1.0.3
+* Added new parameter as importance to email send request
+
 1.0.2
 * Added get email request details feature
 
