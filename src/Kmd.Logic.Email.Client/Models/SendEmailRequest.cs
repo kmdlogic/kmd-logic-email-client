@@ -28,8 +28,8 @@ namespace Kmd.Logic.Email.Client.Models
         /// <param name="providerConfigurationId">A unique identifier that
         /// represents the associated configuration
         /// which this Email message will be sent with.</param>
-        /// <param name="importance">Email importance level (e.g. low, normal
-        /// and high)</param>
+        /// <param name="importance">Possible values include: 'low', 'normal',
+        /// 'high'</param>
         /// <param name="subject">Email Subject</param>
         /// <param name="recipients">Recipients email addresses</param>
         /// <param name="body">A unique identifier that represents the
@@ -69,7 +69,7 @@ namespace Kmd.Logic.Email.Client.Models
         public System.Guid ProviderConfigurationId { get; set; }
 
         /// <summary>
-        /// Gets or sets email importance level (e.g. low, normal and high)
+        /// Gets or sets possible values include: 'low', 'normal', 'high'
         /// </summary>
         [JsonProperty(PropertyName = "importance")]
         public string Importance { get; set; }
