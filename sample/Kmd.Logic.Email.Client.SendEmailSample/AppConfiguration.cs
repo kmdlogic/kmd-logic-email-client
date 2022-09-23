@@ -27,6 +27,8 @@ namespace Kmd.Logic.Email.Client.SendEmailSample
         /// </summary>
         public Guid ProviderConfigurationId { get; set; } = new Guid("00000000-0000-0000-0000-000000000000");
 
+        public string Importance { get; set; } = "low";
+
         /// <summary>
         /// Gets or sets email message body.
         /// </summary>

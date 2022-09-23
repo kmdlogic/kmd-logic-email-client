@@ -8,6 +8,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
     {
         public SendEmailRequestDetails(
             Guid providerConfigurationId,
+            string importance,
             RecipientEmailDetails recipients,
             string body,
             string subject,
@@ -17,6 +18,7 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
             string callbackUrl = null)
         {
             this.ProviderConfigurationId = providerConfigurationId;
+            this.Importance = importance;
             this.Body = body;
             this.Recipients = recipients;
             this.Subject = subject;
@@ -27,6 +29,8 @@ namespace Kmd.Logic.Email.Client.ServicesMessages
         }
 
         public Guid ProviderConfigurationId { get; }
+
+        public string Importance { get; }
 
         public string Body { get; }
 

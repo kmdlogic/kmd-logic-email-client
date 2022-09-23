@@ -100,6 +100,7 @@ namespace Kmd.Logic.Email.Client
 
             var request = new SendEmailRequest(
                 sendEmailRequestDetails.ProviderConfigurationId,
+                sendEmailRequestDetails.Importance,
                 sendEmailRequestDetails.Subject,
                 emailRecipient,
                 sendEmailRequestDetails.Body,
